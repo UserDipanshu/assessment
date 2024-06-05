@@ -1,7 +1,5 @@
 function Pagination({ totalPages, curPage, onPageChange }) {
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
-
-  console.log(curPage, "curpage", totalPages, "totalpage");
   return (
     <nav aria-label="...">
       <ul className="pagination">
@@ -16,7 +14,7 @@ function Pagination({ totalPages, curPage, onPageChange }) {
             <li
               key={`${index} ${page}`}
               className="page-item"
-              onClick={() => onPageChange(page-1)}
+              onClick={() => onPageChange(page - 1)}
             >
               <a className="page-link" href="#">
                 {page}
@@ -28,7 +26,7 @@ function Pagination({ totalPages, curPage, onPageChange }) {
           className={
             curPage === totalPages ? "page-item disabled" : "page-item"
           }
-          onClick={() =>onPageChange((curPage + 1) % totalPages)}
+          onClick={() => onPageChange((curPage + 1) % totalPages)}
         >
           <a className="page-link" href="#">
             Next

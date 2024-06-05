@@ -5,18 +5,29 @@ import Table from "../../components/Table/Table";
 import variables from "../../utils/vars/variables";
 import data from "../../utils/movieDb";
 import paginate from "../../utils/helperFunctions/paginate";
+import filteringData from "../../utils/helperFunctions/filtering";
 import "./main.css";
 
 function MainPage() {
   const [movies, setMovies] = useState([]);
   const [curPage, setCurPage] = useState(0);
+  const [processedMovies, setProecessedMovies] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState("");
 
-  const totalPages = Math.ceil(data.length / variables.pageSize);
+  const totalPages = Math.ceil(processedMovies.length / variables.pageSize);
 
   useEffect(() => {
-    const paginatedData = paginate(variables.pageSize, curPage, data);
+    const filteredData = filteringData(selectedGenre, data);
+    setProecessedMovies(filteredData);
+
+    const paginatedData = paginate(variables.pageSize, curPage, filteredData);
     setMovies(paginatedData);
-  }, [curPage]);
+  }, [curPage, selectedGenre]);
+
+  function handleGenreChange(genre) {
+    setCurPage(0);
+    setSelectedGenre(genre);
+  }
 
   function handlePageChange(curPage) {
     setCurPage(curPage);
@@ -26,7 +37,7 @@ function MainPage() {
     <div className="mainCont">
       <div className="rowOne">
         <div className="genreCol">
-          <GenresTable />
+          <GenresTable onGenreChange={handleGenreChange} />
         </div>
         <div className="movieCol">
           <Table data={movies} />
