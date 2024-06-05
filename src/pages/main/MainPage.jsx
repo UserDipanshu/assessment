@@ -7,30 +7,39 @@ import data from "../../utils/movieDb";
 import paginate from "../../utils/helperFunctions/paginate";
 import filteringData from "../../utils/helperFunctions/filtering";
 import "./main.css";
+import Search from "../../components/SearchBar/SearchBox";
+import searching from "../../utils/helperFunctions/searching";
 
 function MainPage() {
   const [movies, setMovies] = useState([]);
   const [curPage, setCurPage] = useState(0);
   const [processedMovies, setProecessedMovies] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const totalPages = Math.ceil(processedMovies.length / variables.pageSize);
 
   useEffect(() => {
-    const filteredData = filteringData(selectedGenre, data);
+    const filteredData = searchQuery.length === 0 ? filteringData(selectedGenre, data) : searching(searchQuery, data);
     setProecessedMovies(filteredData);
 
     const paginatedData = paginate(variables.pageSize, curPage, filteredData);
     setMovies(paginatedData);
-  }, [curPage, selectedGenre]);
+  }, [curPage, selectedGenre, searchQuery]);
 
   function handleGenreChange(genre) {
+    setSearchQuery("");
     setCurPage(0);
     setSelectedGenre(genre);
   }
 
   function handlePageChange(curPage) {
     setCurPage(curPage);
+  }
+
+  function handleSearch(query) {
+    setSelectedGenre("")
+    setSearchQuery(query)
   }
 
   return (
@@ -40,6 +49,7 @@ function MainPage() {
           <GenresTable onGenreChange={handleGenreChange} />
         </div>
         <div className="movieCol">
+          <Search value={searchQuery} onSearch={handleSearch} />
           <Table data={movies} />
         </div>
       </div>

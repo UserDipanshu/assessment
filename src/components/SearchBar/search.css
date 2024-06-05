@@ -1,0 +1,9 @@
+.searchCont{
+    margin: 10px;
+}
+
+.searchCont > input{
+    padding: 4px 9px;
+    border-radius: 10px;
+    border: none;
+}
