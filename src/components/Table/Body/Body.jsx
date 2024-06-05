@@ -1,6 +1,6 @@
-import data from "../../../utils/movieDb.js";
 
-function Body() {
+
+function Body({data}) {
   return (
     <tbody>
       {data.map((movie) => (
