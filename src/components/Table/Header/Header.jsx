@@ -9,8 +9,8 @@ function Header() {
   return (
     <thead>
       <tr>
-        {tableHeader.map((item) => (
-          <th scope="col">{item.value}</th>
+        {tableHeader.map((item, index) => (
+          <th scope="col" key={`${item} ${index}`}>{item.value}</th>
         ))}
       </tr>
     </thead>
