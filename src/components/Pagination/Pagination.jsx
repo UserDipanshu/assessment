@@ -16,7 +16,7 @@ function Pagination({ totalPages, curPage, onPageChange }) {
             <li
               key={`${index} ${page}`}
               className="page-item"
-              onClick={() => onPageChange(page)}
+              onClick={() => onPageChange(page-1)}
             >
               <a className="page-link" href="#">
                 {page}
