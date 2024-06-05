@@ -1,12 +1,12 @@
 import Body from "./Body/Body.jsx";
 import Header from "./Header/Header.jsx";
 
-function Table({data}) {
+function Table({data, onSort}) {
 
   return (
     <>
       <table className="table">
-        <Header />
+        <Header onSort={onSort}/>
         <Body data = {data} />
       </table>
     </>
