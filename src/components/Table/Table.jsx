@@ -1,13 +1,15 @@
 import Body from "./Body/Body.jsx";
 import Header from "./Header/Header.jsx";
 
-function Table() {
+function Table({data}) {
 
   return (
-    <table className="table">
-      <Header />
-      <Body />
-    </table>
+    <>
+      <table className="table">
+        <Header />
+        <Body data = {data} />
+      </table>
+    </>
   );
 }
 
